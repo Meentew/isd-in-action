@@ -1,5 +1,5 @@
 package tacos;
-
+import java.math.BigDecimal;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -18,6 +18,11 @@ public class Ingredient {
   private String id;
   private String name;
   private Type type;
+  private BigDecimal price;
+
+  public Ingredient(String id, String name, Type type) {
+    this(id, name, type, null);
+  }
 
   public enum Type {
     WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE, DRINK
