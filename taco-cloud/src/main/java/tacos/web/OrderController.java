@@ -18,30 +18,39 @@ import tacos.data.OrderRepository;
 @Slf4j
 @Controller
 @RequestMapping("/orders")
+// เก็บ tacoOrder ไว้ใน session เพื่อรับคำสั่งซื้อที่เริ่มจากหน้าออกแบบทาโก้
 @SessionAttributes("tacoOrder")
 public class OrderController {
 
+  // Repository สำหรับบันทึกคำสั่งซื้อลงในระบบจัดเก็บข้อมูล
   private OrderRepository orderRepo;
 
+  // รับ repository ผ่าน constructor เพื่อให้ Spring inject dependency ให้
   public OrderController(OrderRepository orderRepo) {
     this.orderRepo = orderRepo;
   }
 
+  // GET /orders/current: แสดงแบบฟอร์มกรอกข้อมูลสำหรับคำสั่งซื้อปัจจุบัน
   @GetMapping("/current")
   public String orderForm() {
     return "orderForm";
   }
 
+  // POST /orders: ตรวจสอบและบันทึกคำสั่งซื้อที่ส่งมาจากแบบฟอร์ม
   @PostMapping
   public String processOrder(@Valid @NonNull TacoOrder order, Errors errors, SessionStatus sessionStatus) {
+    // ถ้าข้อมูลไม่ผ่าน validation ให้กลับไปแสดงแบบฟอร์มพร้อมข้อผิดพลาด
     if (errors.hasErrors()) {
       return "orderForm";
     }
 
+    // บันทึกคำสั่งซื้อและเขียนรายละเอียดลง log
     orderRepo.save(order);
     log.info("Order submitted: {}", order);
+    // ล้างข้อมูล session ของคำสั่งซื้อเมื่อบันทึกเสร็จแล้ว
     sessionStatus.setComplete();
 
+    // กลับไปยังหน้าแรกหลังส่งคำสั่งซื้อสำเร็จ
     return "redirect:/";
   }
 

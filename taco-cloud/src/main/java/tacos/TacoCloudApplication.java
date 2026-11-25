@@ -23,6 +23,7 @@ public class TacoCloudApplication {
         repo.save(new Ingredient("FLTO", "Flour Tortilla", Type.WRAP));
         repo.save(new Ingredient("COTO", "Corn Tortilla", Type.WRAP));
         repo.save(new Ingredient("GRBF", "Ground Beef", Type.PROTEIN));
+        repo.save(new Ingredient("WWTO", "Whole Wheat Tortilla", Type.PROTEIN));
         repo.save(new Ingredient("CARN", "Carnitas", Type.PROTEIN));
         repo.save(new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES));
         repo.save(new Ingredient("LETC", "Lettuce", Type.VEGGIES));

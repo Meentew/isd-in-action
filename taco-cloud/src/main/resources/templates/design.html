@@ -2,30 +2,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
   <head>
+    <!-- ข้อมูลพื้นฐานของหน้า และโหลด CSS ผ่าน URL ที่ Thymeleaf สร้างให้ -->
     <title>Taco Cloud</title>
     <link rel="stylesheet" th:href="@{/styles.css}" />
   </head>
 
   <body>
+    <!-- หัวข้อและรูปประกอบหน้าออกแบบทาโก้ -->
     <h1>Design your taco!</h1>
     <img th:src="@{/images/TacoCloud.png}"/>
 
+    <!-- ผูกฟอร์มกับอ็อบเจ็กต์ taco; ส่งข้อมูลด้วย HTTP POST -->
     <form method="POST" th:object="${taco}">
 
+    <!-- แสดงข้อความผิดพลาดของ ingredients หากการตรวจสอบข้อมูลไม่ผ่าน -->
     <span class="validationError"
           th:if="${#fields.hasErrors('ingredients')}"
           th:errors="*{ingredients}">Ingredient Error</span>
 
-    <div class="grid">
+    <!-- กลุ่มตัวเลือกวัตถุดิบแต่ละประเภท -->
+    <div class="grid"> 
+      <!-- วนรายการ wrap ที่ controller ส่งมา แล้วสร้าง checkbox ต่อวัตถุดิบ -->
       <div class="ingredient-group" id="wraps">
       <h3>Designate your wrap:</h3>
       <div th:each="ingredient : ${wrap}">
+        <!-- checkbox ทุกประเภทผูกกับฟิลด์ ingredients; ส่ง id ของวัตถุดิบที่เลือก -->
         <input th:field="*{ingredients}" type="checkbox"
                th:value="${ingredient.id}"/>
+        <!-- แสดงชื่อวัตถุดิบ -->
         <span th:text="${ingredient.name}">INGREDIENT</span><br/>
       </div>
       </div>
 
+      <!-- วนแสดงรายการโปรตีน -->
 	  <div class="ingredient-group" id="proteins">
       <h3>Pick your protein:</h3>
       <div th:each="ingredient : ${protein}">
@@ -35,6 +44,7 @@
       </div>
       </div>
 
+      <!-- วนแสดงรายการชีส -->
 	  <div class="ingredient-group" id="cheeses">
       <h3>Choose your cheese:</h3>
       <div th:each="ingredient : ${cheese}">
@@ -44,6 +54,7 @@
       </div>
       </div>
 
+      <!-- วนแสดงรายการผัก -->
 	  <div class="ingredient-group" id="veggies">
       <h3>Determine your veggies:</h3>
       <div th:each="ingredient : ${veggies}">
@@ -53,6 +64,7 @@
       </div>
       </div>
 
+      <!-- วนแสดงรายการซอส -->
 	  <div class="ingredient-group" id="sauces">
       <h3>Select your sauce:</h3>
       <div th:each="ingredient : ${sauce}">
@@ -62,6 +74,7 @@
       </div>
       </div>
     
+    <!-- วนแสดงรายการเครื่องดื่ม -->
     <div class="ingredient-group" id="drinks">
       <h3>Select your drink:</h3>
       <div th:each="ingredient : ${drink}">
@@ -69,10 +82,11 @@
                th:value="${ingredient.id}"/>
         <span th:text="${ingredient.name}">INGREDIENT</span><br/>
       </div>
-      </div>
+      </div> 
 
       </div>
 
+      <!-- ช่องตั้งชื่อทาโก้ พร้อมแสดงข้อผิดพลาดหากชื่อไม่ผ่าน validation -->
       <div>
 
 
@@ -83,6 +97,7 @@
             th:errors="*{name}">Name Error</span>
       <br/>
 
+      <!-- ส่งข้อมูลที่กรอกทั้งหมดไปประมวลผล -->
       <button>Submit Your Taco</button>
       </div>
     </form>
