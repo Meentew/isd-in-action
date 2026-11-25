@@ -45,5 +45,7 @@ public class Taco {
     }
     return totalPrice;
   }
-
+  public void removeIngredient(Ingredient ingredient) {
+    this.ingredients.remove(ingredient);
+  }
 }

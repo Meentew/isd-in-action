@@ -70,5 +70,10 @@ public class TacoOrder implements Serializable {
     }
     return totalPrice;
   }
+  public void removeTaco(int index) {
+    if (index >= 0 && index < tacos.size()) {
+      tacos.remove(index);
+    }
+  }
 }
 

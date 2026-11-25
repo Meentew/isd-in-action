@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.jspecify.annotations.NonNull;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,6 +29,11 @@ public class OrderController {
   // รับ repository ผ่าน constructor เพื่อให้ Spring inject dependency ให้
   public OrderController(OrderRepository orderRepo) {
     this.orderRepo = orderRepo;
+  }
+
+  @ModelAttribute(name = "tacoOrder")
+  public TacoOrder order() {
+    return new TacoOrder();
   }
 
   // GET /orders/current: แสดงแบบฟอร์มกรอกข้อมูลสำหรับคำสั่งซื้อปัจจุบัน
